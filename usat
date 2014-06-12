@@ -1,0 +1,16 @@
+#! /bin/sh
+source `which virtualenvwrapper.sh`
+cd ~/gannett/usat-web
+workon usat-web
+
+if [[ "$1" == "" ]]; then
+  echo 'USAGE: usat <env> <debug>'
+  exit
+fi
+
+ENV=$1
+if [[ "$2" == 'debug' ]]; then
+  DEBUG='-m pdb'
+fi
+
+SITE_ENV=$ENV SITE_KEY=usatoday CONFIG_DIR=$HOME/gannett/web-site-config/configs python $DEBUG manage.py runserver

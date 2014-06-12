@@ -1,0 +1,17 @@
+#! /bin/sh
+source `which virtualenvwrapper.sh`
+cd ~/gannett/broadcast-web
+workon broadcast-web
+
+if [[ "$1" == "" ]]; then
+  echo 'USAGE: broadcast <site_key> <env> <debug>'
+  exit
+fi
+
+SITE_KEY=$1
+ENV=$2
+if [[ "$3" == 'debug' ]]; then
+  DEBUG='-m pdb'
+fi
+
+SITE_ENV=$ENV SITE_KEY=$SITE_KEY CONFIG_DIR=$HOME/gannett/web-site-config/configs python $DEBUG manage.py runserver
